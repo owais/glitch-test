@@ -1,0 +1,33 @@
+receivers:
+  zipkin:
+    endpoint: "localhost:9411"
+
+exporters:
+  logging: {}
+  #sapm:
+  #  endpoint: "http://127.0.0.1:7276/v2/trace"
+  #  max_retries: 5
+  #signalfx:
+  #  auth_token: "N6Ffwg0u2t07U_vGYoi7kQ"
+  #  realm: "us1"
+  #signalfx:
+  #  auth_token: "N6Ffwg0u2t07U_vGYoi7kQ"
+  #  realm: "us1"
+  # prometheus:
+  #  endpoint: "127.0.0.1:5555"
+  # opencensus:
+  #  endpoint: "127.0.0.1:55678"
+
+processors:
+  queued_retry: {}
+  # batch: {}
+  #probabilistic_sampler:
+
+
+service:
+  # extensions: [health_check]
+  pipelines:
+    traces:
+      receivers: [zipkin]
+      processors: [queued_retry]
+      exporters: [logging]
